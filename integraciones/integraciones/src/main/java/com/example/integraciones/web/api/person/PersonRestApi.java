@@ -1,6 +1,8 @@
 package com.example.integraciones.web.api.person;
 
 import com.example.integraciones.commons.exceptions.base.ServiceException;
+import com.example.integraciones.commons.exceptions.persistence.DataCorruptedPersistenceException;
+import com.example.integraciones.commons.exceptions.persistence.PortalPersistenceException;
 import com.example.integraciones.domain.entity.Person;
 import com.example.integraciones.domain.entity.enums.IdType;
 import com.example.integraciones.service.person.PersonService;
@@ -35,7 +37,7 @@ public class PersonRestApi {
     })
 
     @PostMapping
-    public ResponseEntity<Person> create(@RequestBody Person person) {
+    public ResponseEntity create(@RequestBody Person person) throws DataCorruptedPersistenceException, PortalPersistenceException {
         return new ResponseEntity<Person>(personService.create(person), HttpStatus.CREATED);
     }
 
@@ -46,7 +48,7 @@ public class PersonRestApi {
     })
 
     @GetMapping("/type/{type}/id/{id}")
-    public ResponseEntity<Person> find(@PathVariable("id") Long id, @PathVariable("type") String type) throws ServiceException {
+    public ResponseEntity find(@PathVariable("id") Long id, @PathVariable("type") String type) throws ServiceException {
 
         return new ResponseEntity<>(personService.findByIdAndTypeId(id, IdType.findIdTypeByType(type)), HttpStatus.OK);
     }
@@ -58,7 +60,7 @@ public class PersonRestApi {
     })
 
     @PutMapping
-    public ResponseEntity<Person> update(@RequestBody Person person) {
+    public ResponseEntity update(@RequestBody Person person) {
         return new ResponseEntity<>(personService.update(person), HttpStatus.OK);
     }
 
@@ -69,7 +71,7 @@ public class PersonRestApi {
     })
 
     @GetMapping
-    public ResponseEntity<List<Person>> findAll() {
+    public ResponseEntity findAll() {
         return new ResponseEntity<>(personService.findAll(), HttpStatus.OK);
     }
 
@@ -79,7 +81,7 @@ public class PersonRestApi {
             @ApiResponse(code = 400, message = "The resource that you were trying to registry is already exist.")
     })
     @DeleteMapping("/type/{type}/id/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id, @PathVariable("type") String type) throws ServiceException {
+    public ResponseEntity delete(@PathVariable("id") Long id, @PathVariable("type") String type) throws ServiceException {
         personService.delete(id, IdType.findIdTypeByType(type));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -11,6 +11,7 @@ public enum LogRefServicios {
     ERROR_PERSISTENCIA("ERROR_PERSISTENCIA", "/ayuda/error_persistencia.html"),
     ERROR_CLIENTE_SERVICIO("ERROR_CLIENTE_SERVICIO", "/ayuda/error_cliente_servicio.html"),
     ERROR_DATO_CORRUPTO("ERROR_DATO_CORRUPTO", "/ayuda/error_general_servicio.html"),
+    ERROR_JWT_SEGURIDAD("ERROR_JWT_VALIDACION", "/ayuda/error_validacion_jwt.html"),
     ERROR_DATO_NO_ENCONTRADO("ERROR_DATO_NO_ENCONTRADO", "/ayuda/error_general_servicio.html");
 
     /**

@@ -8,12 +8,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Person extends BaseEntity {
 
 
@@ -35,6 +37,7 @@ public class Person extends BaseEntity {
     private String lastname;
 
     @ApiModelProperty(value = "Date", example = "2019/05/10")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     @Column(unique = true, nullable = false)
     private Date date;
 

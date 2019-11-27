@@ -2,8 +2,10 @@ package com.example.integraciones.commons.exceptions.base;
 
 import com.example.integraciones.commons.enums.LogRefServicios;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class ServiceException extends Exception {
 
     private LogRefServicios logRefServicios;

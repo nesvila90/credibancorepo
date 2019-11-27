@@ -9,7 +9,7 @@ public interface UserRepositoryFacade {
 
     User create(User user);
 
-    User findById(String typeId, Long id);
+    User validate(String username, String password);
 
     User findByUsername(String nickname);
 

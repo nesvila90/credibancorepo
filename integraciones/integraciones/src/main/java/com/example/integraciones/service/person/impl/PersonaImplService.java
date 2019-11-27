@@ -1,5 +1,7 @@
 package com.example.integraciones.service.person.impl;
 
+import com.example.integraciones.commons.exceptions.persistence.DataCorruptedPersistenceException;
+import com.example.integraciones.commons.exceptions.persistence.PortalPersistenceException;
 import com.example.integraciones.domain.entity.enums.IdType;
 import com.example.integraciones.domain.entity.Person;
 import com.example.integraciones.repository.person.PersonRepositoryFacade;
@@ -20,7 +22,7 @@ public class PersonaImplService implements PersonService {
     }
 
     @Override
-    public Person create(Person person) {
+    public Person create(Person person) throws DataCorruptedPersistenceException, PortalPersistenceException {
         return personRepositoryFacade.create(person);
     }
 

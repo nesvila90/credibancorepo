@@ -13,11 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * The type Person rest advicer.
  */
 @Slf4j
+@RequestMapping(produces = "application/vnd.error+json")
 @ControllerAdvice(assignableTypes = PersonRestApi.class)
 public class PersonRestAdvicer extends BaseRestAdvicer {
 
