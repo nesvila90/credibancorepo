@@ -26,12 +26,12 @@ public class UserRepositoryImplFacade implements UserRepositoryFacade {
 
     @Override
     public User validate(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, password);
+        return userRepository.findByUsernameAppAndPasswordApp(username, password);
     }
 
     @Override
     public User findByUsername(String nickname) {
-        return userRepository.findByUsername(nickname);
+        return userRepository.findByUsernameApp(nickname);
     }
 
     @Override
@@ -42,8 +42,7 @@ public class UserRepositoryImplFacade implements UserRepositoryFacade {
     @Override
     public User updateUser(User user) {
         User userToModify = findByUsername(user.getUsername());
-        userToModify.setState(ObjectUtils.defaultIfNull(user.getState(), userToModify.getState()));
-        userToModify.setPassword(ObjectUtils.defaultIfNull(user.getPassword(), userToModify.getPassword()));
+        userToModify.setPasswordApp(ObjectUtils.defaultIfNull(user.getPassword(), userToModify.getPassword()));
         userToModify.setRoles(ObjectUtils.defaultIfNull(user.getRoles(), userToModify.getRoles()));
         return userRepository.saveAndFlush(user);
     }

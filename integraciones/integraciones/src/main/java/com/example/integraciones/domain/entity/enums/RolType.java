@@ -8,8 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum RolType {
 
-    ADMIN(1,"ADMINISTRATOR"),
-    USER(2,"USER");
+    ADMIN(1,"ROLE_ADMIN"),
+    USER(2,"ROLE_USER");
     private final Integer id;
     private final String name;
 }

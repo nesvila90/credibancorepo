@@ -12,9 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-public class BaseRestAdvicer {
+@RestControllerAdvice
+public abstract class BaseRestAdvicer {
 
     @ExceptionHandler
     protected ResponseEntity<VndErrors> errorServiceExceptionHandler(final ServiceException serviceException) {

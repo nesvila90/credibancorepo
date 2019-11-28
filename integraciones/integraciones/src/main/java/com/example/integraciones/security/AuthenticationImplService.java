@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -35,8 +36,9 @@ class AuthenticationImplService implements AuthenticationService {
     @Override
     public AuthenticationResponse singin(AuthenticationRequest authData) {
         try {
-            String username = authData.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, authData.getPassword()));
+            final String username = authData.getUsername();
+
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authData, authData.getPassword()));
             String token = jwtTokenProvider.createToken(username, this.userRepositoryFacade.findByUsername(username).getRoles()
                     .stream().map(Rol::getRol)
                     .map(RolType::getName).collect(toList()));

@@ -1,11 +1,11 @@
 package com.example.integraciones.security;
 
-import com.example.integraciones.commons.enums.LogRefServicios;
 import com.example.integraciones.security.exceptions.InvalidJwtAuthenticationException;
-import com.example.integraciones.security.exceptions.PortalJwtException;
+import com.example.integraciones.security.model.JwtProperties;
 import io.jsonwebtoken.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +28,7 @@ public class JwtTokenProvider {
     private String secretKey;
 
     @Autowired
+    @Qualifier(value = "customUserDetailsService")
     private UserDetailsService userDetailsService;
 
      @PostConstruct
@@ -60,7 +61,7 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public static String resolveToken(HttpServletRequest req) {
+    public String resolveToken(HttpServletRequest req) {
         return Optional.ofNullable(req.getHeader("Authorization"))
                 .filter(header -> header.startsWith("Bearer "))
                 .map(token -> token.substring(7)).orElse(null);

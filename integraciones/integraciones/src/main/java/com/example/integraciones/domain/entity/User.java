@@ -2,7 +2,10 @@ package com.example.integraciones.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +19,9 @@ import static java.util.stream.Collectors.toList;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -23,16 +29,23 @@ public class User implements UserDetails {
     @JsonIgnore
     private Long id;
     @ApiModelProperty(value = "username", example = "nvillar")
-    private String username;
+    private String usernameApp;
     @ApiModelProperty(value = "password", example = "1234564")
-    private String password;
-    @ApiModelProperty(value = "state", example = "true")
-    private Boolean state;
+    private String passwordApp;
     @ApiModelProperty(value = "roles")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles;
 
+    @Override
+    public String getPassword() {
+        return this.usernameApp;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.passwordApp;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -62,8 +75,8 @@ public class User implements UserDetails {
 
     interface UserPropertiesPreConfigurated {
         boolean ENABLED = true;
-        boolean CREDENTIALS_EXPIRED = false;
-        boolean ACCOUNT_LOCKED = false;
-        boolean ACCOUNT_EXPIRED = false;
+        boolean CREDENTIALS_EXPIRED = true;
+        boolean ACCOUNT_LOCKED = true;
+        boolean ACCOUNT_EXPIRED = true;
     }
 }

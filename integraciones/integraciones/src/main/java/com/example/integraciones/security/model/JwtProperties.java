@@ -1,4 +1,4 @@
-package com.example.integraciones.security;
+package com.example.integraciones.security.model;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
