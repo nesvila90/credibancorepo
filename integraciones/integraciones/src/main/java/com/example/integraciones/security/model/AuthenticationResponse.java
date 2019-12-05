@@ -1,11 +1,14 @@
 package com.example.integraciones.security.model;
 
 import lombok.Builder;
+import lombok.Getter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Builder
-public class AuthenticationResponse {
+@Getter
+public class AuthenticationResponse implements Serializable {
     private String username;
     private String token;
     private String type;

@@ -2,8 +2,10 @@ package com.example.integraciones.security.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class AuthenticationRequest {
+public class AuthenticationRequest implements Serializable {
 
     private String username;
     private String password;

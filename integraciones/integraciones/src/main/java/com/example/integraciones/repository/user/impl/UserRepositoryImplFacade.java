@@ -1,6 +1,6 @@
 package com.example.integraciones.repository.user.impl;
 
-import com.example.integraciones.domain.entity.User;
+import com.example.integraciones.domain.entity.UserApp;
 import com.example.integraciones.repository.user.UserRepository;
 import com.example.integraciones.repository.user.UserRepositoryFacade;
 import org.apache.commons.lang3.ObjectUtils;
@@ -20,31 +20,32 @@ public class UserRepositoryImplFacade implements UserRepositoryFacade {
     }
 
     @Override
-    public User create(User user) {
-        return userRepository.save(user);
+    public UserApp create(UserApp userApp) {
+        return userRepository.save(userApp);
     }
 
     @Override
-    public User validate(String username, String password) {
-        return userRepository.findByUsernameAppAndPasswordApp(username, password);
+    public UserApp validate(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
     }
 
     @Override
-    public User findByUsername(String nickname) {
-        return userRepository.findByUsernameApp(nickname);
+    public UserApp findByUsername(String nickname) {
+        UserApp userApp = userRepository.findByUsername(nickname);
+        return userApp;
     }
 
     @Override
-    public List<User> findAllUser() {
+    public List<UserApp> findAllUser() {
         return userRepository.findAll();
     }
 
     @Override
-    public User updateUser(User user) {
-        User userToModify = findByUsername(user.getUsername());
-        userToModify.setPasswordApp(ObjectUtils.defaultIfNull(user.getPassword(), userToModify.getPassword()));
-        userToModify.setRoles(ObjectUtils.defaultIfNull(user.getRoles(), userToModify.getRoles()));
-        return userRepository.saveAndFlush(user);
+    public UserApp updateUser(UserApp userApp) {
+        UserApp userAppToModify = findByUsername(userApp.getUsername());
+        userAppToModify.setPassword(ObjectUtils.defaultIfNull(userApp.getPassword(), userAppToModify.getPassword()));
+        userAppToModify.setRoles(ObjectUtils.defaultIfNull(userApp.getRoles(), userAppToModify.getRoles()));
+        return userRepository.saveAndFlush(userApp);
     }
 
     @Override

@@ -1,13 +1,16 @@
 package com.example.integraciones.repository.user;
 
-import com.example.integraciones.domain.entity.User;
+import com.example.integraciones.domain.entity.UserApp;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-@RepositoryRestResource
-public interface UserRepository extends JpaRepository<User, Long> {
+@Repository
+public interface UserRepository extends JpaRepository<UserApp, Long> {
 
-    User findByUsernameAppAndPasswordApp(String username, String password);
+    UserApp findByUsernameAndPassword(String username, String password);
 
-    User findByUsernameApp(String username);
+    @Query("SELECT U FROM UserApp U WHERE U.username = :user")
+    UserApp findByUsername(@Param("user") String user);
 }

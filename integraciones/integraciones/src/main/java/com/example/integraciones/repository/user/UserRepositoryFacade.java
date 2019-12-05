@@ -1,21 +1,20 @@
 package com.example.integraciones.repository.user;
 
-import com.example.integraciones.domain.entity.Person;
-import com.example.integraciones.domain.entity.User;
+import com.example.integraciones.domain.entity.UserApp;
 
 import java.util.List;
 
 public interface UserRepositoryFacade {
 
-    User create(User user);
+    UserApp create(UserApp userApp);
 
-    User validate(String username, String password);
+    UserApp validate(String username, String password);
 
-    User findByUsername(String nickname);
+    UserApp findByUsername(String nickname);
 
-    List<User> findAllUser();
+    List<UserApp> findAllUser();
 
-    User updateUser(User person);
+    UserApp updateUser(UserApp person);
 
     void deleteUser(Long id);
 

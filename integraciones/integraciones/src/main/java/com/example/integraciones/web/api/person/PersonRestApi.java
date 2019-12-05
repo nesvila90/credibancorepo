@@ -6,10 +6,7 @@ import com.example.integraciones.commons.exceptions.persistence.PortalPersistenc
 import com.example.integraciones.domain.entity.Person;
 import com.example.integraciones.domain.entity.enums.IdType;
 import com.example.integraciones.service.person.PersonService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +32,6 @@ public class PersonRestApi {
             @ApiResponse(code = 201, message = "Successful registration of the employee in the repository."),
             @ApiResponse(code = 400, message = "The resource that you were trying to registry is already exist.")
     })
-
     @PostMapping
     public ResponseEntity<Person> create(@RequestBody Person person) throws DataCorruptedPersistenceException, PortalPersistenceException {
         return new ResponseEntity<>(personService.create(person), HttpStatus.CREATED);
